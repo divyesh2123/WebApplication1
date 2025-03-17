@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<table id="display">
+
+    <tr>
+        <th>categoryId</th>
+        <th>categoryName</th>
+        <th>description</th>
+            
+    </tr>
+</table>
+
+@section Scripts
+{
+    <script>
+
+        $(document).ready(function(){
+
+
+                    $('#display').DataTable({
+                            "ajax": {
+                    "url": "https://localhost:7078/ProductInformation/GetData",
+                    "type": "GET",
+                    "datatype": "json",
+                    "error": function (xhr, error, thrown) {
+                        console.log("Error loading data:", error);
+                    }
+                            },
+                     "columns": [
+                    { "data": "categoryId" },
+                    { "data": "categoryName" },
+                    { "data": "description" }
+                    
+                                ]
+
+
+                    });
+
+        })
+
+    </script>
+}
