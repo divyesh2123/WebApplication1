@@ -20,5 +20,15 @@ namespace WebApplication1.Controllers
 
             return Json(new {data= data });  
         }
+
+        [HttpDelete]
+        public JsonResult DeleteInfo(int id)
+        {
+            var data = northwind3Context.Categories.Find(id);
+            northwind3Context.Categories.Remove(data);
+            northwind3Context.SaveChanges();
+
+            return Json(new { result=true });
+        }
     }
 }
