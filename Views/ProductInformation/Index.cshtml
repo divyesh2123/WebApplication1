@@ -3,6 +3,15 @@
 *@
 @{
 }
+
+<button 
+    type="button"
+    class="btn btn-primary"
+    onclick="addEditRecorod(0,false)"
+>Add Item</button>
+<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+    Open Offcanvas Sidebar
+</button>
 <table id="display">
 
     <tr>
@@ -14,12 +23,66 @@
     </tr>
 </table>
 
+<div class="offcanvas offcanvas-start" id="demo">
+    <div class="offcanvas-header">
+        <h1 class="offcanvas-title">Heading</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body" id="offcanvasBody">
+       
+    </div>
+</div>
+
 @section Scripts
 {
     <script>
 
-        var deleteCategory;
+        var deleteCategory,addEditRecorod,myInfo;
         $(document).ready(function(){
+
+
+
+                myInfo = function(form) 
+                {
+
+                         var formData = $(form).serialize(); // serialize form fields
+
+        $.ajax({
+            url: '/ProductInformation/AddCategoryInfo',
+            type: 'POST',
+            data: formData,
+            success: function (res) {
+
+
+                Swal.fire(
+                            "Deleted!",
+                            "The category has been deleted.",
+                            "success"
+                        ).then(y=>{
+                             $('#offcanvasBody').html(""); // insert the partial view
+                                     var offcanvasElement = document.getElementById('demo');
+        var offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasElement);
+
+        // If no instance exists (first-time access), create one
+        if (!offcanvasInstance) {
+            offcanvasInstance = new bootstrap.Offcanvas(offcanvasElement);
+        }
+
+        offcanvasInstance.hide(); //
+                                     $('#display').DataTable().ajax.reload();
+                        });
+
+                // Load result (e.g., success message or updated view) into offcanvas
+               
+            },
+            error: function () {
+                alert('Failed to submit the form.');
+            }
+        });
+
+        return false; // prevent default form submit
+                     
+                }
 
 
                     $('#display').DataTable({
@@ -58,6 +121,23 @@
                    
 
                   })
+
+                  addEditRecorod = function(id,isedit)
+                  {
+                       $.ajax({
+            url: '/ProductInformation/AddCategoryInfo/'+id, // your controller action
+            type: 'GET',
+            success: function (res) {
+                $('#offcanvasBody').html(res); // insert the partial view
+                var offcanvas = new bootstrap.Offcanvas(document.getElementById('demo'));
+                offcanvas.show();
+            },
+            error: function () {
+                alert('Failed to load the form.');
+            }
+        });
+
+                  }
 
 
                    deleteCategory = function(id) {

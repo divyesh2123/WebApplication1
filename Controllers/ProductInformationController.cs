@@ -15,6 +15,9 @@ namespace WebApplication1.Controllers
         }
 
         public JsonResult GetData()
+        
+        
+        
         {
             var data = northwind3Context.Categories.ToList();
 
@@ -29,6 +32,20 @@ namespace WebApplication1.Controllers
             northwind3Context.SaveChanges();
 
             return Json(new { result=true });
+        }
+
+        [HttpGet]
+        public PartialViewResult AddCategoryInfo(int? id)
+        {
+            return PartialView("AddCategoryInfo");
+        }
+
+        [HttpPost]
+        public JsonResult AddCategoryInfo(Category category)
+        {
+            var data = northwind3Context.Categories.Add(category);
+            northwind3Context.SaveChanges();
+            return Json(new { result = true });
         }
     }
 }
