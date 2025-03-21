@@ -41,11 +41,25 @@
         $(document).ready(function(){
 
 
+        //             myInfo = function(form) {
+        //                 $.ajax({
+        //     url: '/ProductInformation/AddCategoryInfo/'+id, // your controller action
+        //     type: 'GET',
+        //     success: function (res) {
+        //         $('#offcanvasBody').html(res); // insert the partial view
+        //         var offcanvas = new bootstrap.Offcanvas(document.getElementById('demo'));
+        //         offcanvas.show();
+        //     },
+        //     error: function () {
+        //         alert('Failed to load the form.');
+        //     }
+        // }); do this for post add action and data based on the form pass as params
 
-                myInfo = function(form) 
-                {
 
-                         var formData = $(form).serialize(); // serialize form fields
+        myInfo = function(form) 
+          {
+
+        var formData = $(form).serialize(); // serialize form fields
 
         $.ajax({
             url: '/ProductInformation/AddCategoryInfo',
@@ -59,8 +73,8 @@
                             "The category has been deleted.",
                             "success"
                         ).then(y=>{
-                             $('#offcanvasBody').html(""); // insert the partial view
-                                     var offcanvasElement = document.getElementById('demo');
+         $('#offcanvasBody').html(""); // insert the partial view
+        var offcanvasElement = document.getElementById('demo');
         var offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasElement);
 
         // If no instance exists (first-time access), create one
@@ -69,7 +83,7 @@
         }
 
         offcanvasInstance.hide(); //
-                                     $('#display').DataTable().ajax.reload();
+        $('#display').DataTable().ajax.reload();
                         });
 
                 // Load result (e.g., success message or updated view) into offcanvas
@@ -122,7 +136,13 @@
 
                   })
 
-                  addEditRecorod = function(id,isedit)
+        //                   call addEditRecorod = function(id,isedit)
+        // {
+
+        // } add the ajax to call paritalview and open offcanvas
+
+
+                          addEditRecorod = function(id,isedit)
                   {
                        $.ajax({
             url: '/ProductInformation/AddCategoryInfo/'+id, // your controller action
@@ -176,5 +196,8 @@
         });
         }
 
+
+        //you need to closed this//
+        // var offcanvas = new bootstrap.Offcanvas(document.getElementById('demo')); closed the same what should i wrote
     </script>
 }

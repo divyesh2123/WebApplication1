@@ -1,5 +1,12 @@
 ﻿@model Category
 
+
+@* create form    public int CategoryId { get; set; }
+
+   public string CategoryName { get; set; } = null!;
+
+   public string? Description { get; set; } this field using boostrap *@
+
 <form asp-action="Create" method="post" asp-controller="ProductInformation" asp-action="AddCategoryInfo" method="post" onsubmit="return myInfo(this);">
     
 
