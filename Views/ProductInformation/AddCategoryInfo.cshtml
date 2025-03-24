@@ -8,7 +8,7 @@
    public string? Description { get; set; } this field using boostrap *@
 
 <form asp-action="Create" method="post" asp-controller="ProductInformation" asp-action="AddCategoryInfo" method="post" onsubmit="return myInfo(this);">
-    
+    <input type="hidden" asp-for="CategoryId" class="form-control" />
 
     <div class="mb-3">
         <label asp-for="CategoryName" class="form-label"></label>

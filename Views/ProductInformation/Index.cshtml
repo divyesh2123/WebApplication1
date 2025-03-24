@@ -25,7 +25,7 @@
 
 <div class="offcanvas offcanvas-start" id="demo">
     <div class="offcanvas-header">
-        <h1 class="offcanvas-title">Heading</h1>
+        <h1 class="offcanvas-title" id="editinfo"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="offcanvas-body" id="offcanvasBody">
@@ -116,7 +116,7 @@
             "data": "categoryId",
             "render": function(data, type, row){
                 return `
-                    <button class="btn btn-primary btn-sm" onclick="editCategory(${data})">
+                    <button class="btn btn-primary btn-sm" onclick="addEditRecorod(${data},'true')">
                         <i class="fas fa-edit"></i> Edit
                     </button>
                     <button class="btn btn-danger btn-sm" onclick="deleteCategory(${data})">
@@ -148,7 +148,19 @@
             url: '/ProductInformation/AddCategoryInfo/'+id, // your controller action
             type: 'GET',
             success: function (res) {
-                $('#offcanvasBody').html(res); // insert the partial view
+                $('#offcanvasBody').html(res);
+                
+                if(isedit)
+                {
+                    $("#editinfo").html("Edit Category");
+                }
+                else
+                {
+                     $("#editinfo").html("Add Category");
+                }
+
+                
+                // insert the partial view
                 var offcanvas = new bootstrap.Offcanvas(document.getElementById('demo'));
                 offcanvas.show();
             },

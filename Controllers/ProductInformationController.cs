@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WebApplication1.Controllers
 {
@@ -15,6 +16,7 @@ namespace WebApplication1.Controllers
         }
 
         public JsonResult GetData()
+        
         
         
         
@@ -37,13 +39,35 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public PartialViewResult AddCategoryInfo(int? id)
         {
-            return PartialView("AddCategoryInfo");
+            if (id.HasValue)
+            {
+                var category =  northwind3Context.Categories.Find(id);
+                return PartialView("AddCategoryInfo",category);
+            }
+            else
+            {
+                return PartialView("AddCategoryInfo");
+            }
         }
 
         [HttpPost]
         public JsonResult AddCategoryInfo(Category category)
         {
-            var data = northwind3Context.Categories.Add(category);
+            if(category.CategoryId == 0)
+            {
+                var data = northwind3Context.Categories.Add(category);
+
+            }
+            else
+            {
+                var findCategroy = northwind3Context.Categories.Find(category.CategoryId);
+                findCategroy.CategoryName = category.CategoryName;
+                findCategroy.Description = category.Description;
+
+
+
+            }
+           
             northwind3Context.SaveChanges();
             return Json(new { result = true });
         }
